@@ -5,7 +5,8 @@ const { width } = Dimensions.get('window')
 
 
 const images = {radius: require('../../assets/radius.png'),
-                ping: require('../../assets/location.png')                
+                ping: require('../../assets/location.png'),
+                magnitude: require('../../assets/magnitude.png')                
 };
 
 const styles = StyleSheet.create({ 
@@ -76,6 +77,38 @@ const styles = StyleSheet.create({
         fontSize: 17,
         textAlign: "center"
     },
+    resultContainer:{
+        paddingVertical: 20,
+        alignContent: "center",
+        justifyContent:"center",
+        width: "100%",
+        paddingHorizontal: "4%"
+    },
+    seismes:{
+        paddingVertical: "2.5%",
+    },
+    seismeText: {
+        fontSize: 13,
+        color: 'black',
+        fontWeight: "bold"
+    },
+    displayMagnitude:{
+        display: "flex",
+        flexDirection: "row",
+    },
+    magnitudeImage:{
+        width: 20,
+        height: 20, 
+        marginLeft: 5
+    },
+    displaySeisme:{
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "space-between",
+        padding: 5,
+        borderBottomColor: "#e2e4e9",
+        borderBottomWidth: 2
+    }
   });
 
   export {images, styles}

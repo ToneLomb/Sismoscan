@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: "4%"
     },
     seismes:{
-        paddingVertical: "2.5%",
+        paddingVertical: "3.5%",
     },
     seismeText: {
         fontSize: 13,
@@ -105,8 +105,8 @@ const styles = StyleSheet.create({
         display: "flex",
         flexDirection: "row",
         justifyContent: "space-between",
-        padding: 5,
-        borderBottomColor: "#e2e4e9",
+        paddingVertical: 10,
+        borderBottomColor: "#f5d524",
         borderBottomWidth: 2
     }
   });

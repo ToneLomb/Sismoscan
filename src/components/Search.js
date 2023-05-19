@@ -2,7 +2,8 @@ import {styles} from '../styles/search'
 import {TouchableOpacity, TextInput, Text, View, FlatList } from 'react-native';
 import { Modal } from 'react-native';
 import React, {useRef, useState} from 'react';
-import cities from 'cities.json'
+import cities from '../../cities.json'
+
 
 export var ville = {name: "Rechercher"}
 
@@ -11,23 +12,31 @@ const setVille = (newVille) => {
 
 }
 
+
 export const Search = ({selected, setSelected}) => {
 
     const [search, setSearch] = useState('');
     const [clicked, setClicked] = useState(false);
     const [data, setData] = useState(cities);
     const searchRef = useRef();
-    const onSearch = search => {
-      if (search !== '') {
-        var tempData = cities
-        let tempData2 = tempData.filter(item => {
-          return item.name.toLowerCase().indexOf(search.toLowerCase()) > -1;
-        });
-        setData(tempData2);
-      } else {
-        setData(cities);
-      }
-    }
+    const onSearch = (search) => {
+        if (search !== '') {
+          const tempData = cities.filter((item) => {
+            return item.name.toLowerCase().indexOf(search.toLowerCase()) > -1;
+          });
+      
+          // Trier les résultats par rapport à la longueur de la recherche
+          tempData.sort((a, b) => {
+            const aLength = a.name.length;
+            const bLength = b.name.length;
+            return aLength - bLength;
+          });
+      
+          setData(tempData);
+        } else {
+          setData(cities);
+        }
+      };
 
     return(
         <View>
@@ -66,7 +75,7 @@ export const Search = ({selected, setSelected}) => {
                                     setSelected(!selected)
                                     
                                 }}>
-                                <Text style={{fontWeight: '600'}}>{item.name}, {item.country}</Text>
+                                <Text style={{fontWeight: '600'}}>{item.name}, {item.department_code}</Text>
                                 </TouchableOpacity>
                             );
                             }}

@@ -6,8 +6,36 @@ import { images, styles } from '../styles/form';
 import { Search, ville } from './Search';
 
 
+function formatDate(dateTimeString) {
+  const date = new Date(dateTimeString);
+  const day = String(date.getDate()).padStart(2, '0');
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const year = String(date.getFullYear()).slice(-2);
+  const hours = String(date.getHours()).padStart(2, '0');
+  const minutes = String(date.getMinutes()).padStart(2, '0');
+
+  const formattedDate = `${day}.${month}.${year}`;
+  const formattedTime = `${hours}:${minutes}`;
+
+  return `${formattedDate} - ${formattedTime}`;
+}
+
 const RE = 0.008;
-export var seismes = []
+function display(description, date) {
+  if (description == "Aucun tremblemment de terre") {
+    return description
+  } else {
+
+    let desc = description.split(',')
+    let magnitude = desc[0].slice(-3)
+    let n = desc[1].split(" ")
+    let ville = n[n.length - 1]
+
+    let time = formatDate(date)
+    return [ville + ", " + time, magnitude]
+  }
+
+}
 
 
 function checkDates(startDate, endDate) {
@@ -44,6 +72,12 @@ const yesterdayString = parseDates(yesterday.toISOString()).replaceAll('-', '/')
 
 export const MyForm = () => {
 
+  const [seismes, setSeismes] = useState(
+    [{ "id": "0", "properties": { "description": { fr: "Aucun tremblemment de terre" } } }]
+  );
+  const [hasEarthquake, setHasEarthquake] = useState(false)
+
+
   const [rayon, setRayon] = useState('');
   const [date1, setDate1] = useState(dateStringParse(yesterdayString));
   const [date2, setDate2] = useState(dateStringParse(todayString));
@@ -73,7 +107,7 @@ export const MyForm = () => {
       setVilleError(!villeError)
       return;
     } else {
-      fetchJson(rayon, ville.lat, ville.lng, date1, date2)
+      fetchJson(rayon, ville.gps_lat, ville.gps_lng, date1, date2)
     }
   }
 
@@ -97,20 +131,27 @@ export const MyForm = () => {
 
     let response = await fetch(url);
     let data = await response.json();
-    seismes = []
-    data.features.forEach(seisme => {
-      seismes.push(seisme)
-      console.log(seisme.properties.description.fr)
-    });
-
-
+    setSeismes([])
+    if (data.features.length != 0) {
+      data.features.forEach(seisme => {
+        setSeismes((prevSeismes) => [
+          ...prevSeismes,
+          seisme,
+        ]);
+        setHasEarthquake(true)
+        console.log(seisme.properties.description.fr, seisme.properties.time)
+      });
+    } else {
+      setHasEarthquake(false)
+      setSeismes([{ "id": "0", "properties": { "description": { fr: "Aucun tremblemment de terre" } } }])
+    }
   }
 
   return (
-    <View style={{ flex: 1 }}>
+    <View>
       <View style={styles.formContainer}>
         <View style={styles.header}>
-          <Text style={{fontWeight: "500", fontSize: 20, borderBottomColor: "black", borderBottomWidth: 1}}>
+          <Text style={{ fontWeight: "500", fontSize: 20, borderBottomColor: "black", borderBottomWidth: 1 }}>
             Recherche de séisme
           </Text>
         </View>
@@ -194,19 +235,47 @@ export const MyForm = () => {
             </Text>
           </TouchableOpacity>
         </View>
+        <CustomAlert
+          errorMessage="La date de fin ne peut pas être antérieure à celle du début"
+          modalVisible={dateError}
+          setModalVisible={setDateError} />
+        <CustomAlert
+          errorMessage="Le rayon doit être au minimum de 50 kilomètres"
+          modalVisible={rayonError}
+          setModalVisible={setRayonError} />
+        <CustomAlert
+          errorMessage="Veuillez d'abord spécifier une ville"
+          modalVisible={villeError}
+          setModalVisible={setVilleError} />
       </View>
-      <CustomAlert
-        errorMessage="La date de fin ne peut pas être antérieure à celle du début"
-        modalVisible={dateError}
-        setModalVisible={setDateError} />
-      <CustomAlert
-        errorMessage="Le rayon doit être au minimum de 50 kilomètres"
-        modalVisible={rayonError}
-        setModalVisible={setRayonError} />
-      <CustomAlert
-        errorMessage="Veuillez d'abord spécifier une ville"
-        modalVisible={villeError}
-        setModalVisible={setVilleError} />
+      <View style={styles.resultContainer}>
+        <View>
+          {seismes.map((seisme) => {
+            return (
+              <View key={seisme.id}
+                style={styles.seismes}
+              >
+                {hasEarthquake ? (
+
+                  <View style={styles.displaySeisme}>
+                    <Text style={styles.seismeText}>{display(seisme.properties.description.fr, seisme.properties.time)[0]}</Text>
+                    <View style={styles.displayMagnitude}>
+                      <Text style={styles.seismeText}>{display(seisme.properties.description.fr, seisme.properties.time)[1]}</Text>
+                      <Image source={images.magnitude}
+                        style={styles.magnitudeImage}
+                      />
+                    </View>
+
+                  </View>
+                ) : (
+                  <Text style={styles.seismeText}>{display(seisme.properties.description.fr, seisme.properties.time)}</Text> // false
+                )}
+
+              </View>
+            )
+          })}
+        </View>
+      </View>
     </View>
 
   );

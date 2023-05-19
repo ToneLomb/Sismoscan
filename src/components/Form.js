@@ -4,6 +4,8 @@ import { MyDatePicker } from './DatePicker';
 import { CustomAlert } from './Alert';
 import { images, styles } from '../styles/form';
 import { Search, ville } from './Search';
+import { useNavigation } from '@react-navigation/native';
+
 
 
 function formatDate(dateTimeString) {
@@ -71,6 +73,8 @@ const yesterdayString = parseDates(yesterday.toISOString()).replaceAll('-', '/')
 
 
 export const MyForm = () => {
+
+  const navigation = useNavigation();
 
   const [seismes, setSeismes] = useState(
     [{ "id": "0", "properties": { "description": { fr: "Aucun tremblemment de terre" } } }]
@@ -251,13 +255,26 @@ export const MyForm = () => {
       <View style={styles.resultContainer}>
         <View>
           {seismes.map((seisme) => {
+            
             return (
               <View key={seisme.id}
                 style={styles.seismes}
               >
                 {hasEarthquake ? (
 
-                  <View style={styles.displaySeisme}>
+                  <TouchableOpacity 
+                  style={styles.displaySeisme}
+                  onPress={() => navigation.navigate('Map', 
+                  { paramKey: 
+                    {coordinate: {
+                    latitude: seisme.properties.latitude,
+                    longitude: seisme.properties.longitude
+                  },
+                  title: "Magnitude : " + display(seisme.properties.description.fr, seisme.properties.time)[1],
+                  description: display(seisme.properties.description.fr, seisme.properties.time)[0]
+            
+                  }})}
+                  >
                     <Text style={styles.seismeText}>{display(seisme.properties.description.fr, seisme.properties.time)[0]}</Text>
                     <View style={styles.displayMagnitude}>
                       <Text style={styles.seismeText}>{display(seisme.properties.description.fr, seisme.properties.time)[1]}</Text>
@@ -266,9 +283,11 @@ export const MyForm = () => {
                       />
                     </View>
 
-                  </View>
+                  </TouchableOpacity>
                 ) : (
-                  <Text style={styles.seismeText}>{display(seisme.properties.description.fr, seisme.properties.time)}</Text> // false
+                  <View style={{alignItems: "center"}}>
+                    <Text style={styles.seismeText}>{display(seisme.properties.description.fr, seisme.properties.time)}</Text>
+                  </View>
                 )}
 
               </View>

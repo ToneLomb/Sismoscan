@@ -1,23 +1,41 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
+import { useNavigation } from '@react-navigation/native';
 
-export const EarthMap = () => {
+export const EarthMap = ({route}) => {
   const [markers, setMarkers] = useState([]);
+  const navigation = useNavigation();
 
-  //event appui long
-  const handleLongPress = (event) => {
-    const { coordinate } = event.nativeEvent;
-    setMarkers([...markers, { coordinate }]);
+  useEffect(() => {
+    if (route.params != undefined) {
 
-    console.log(coordinate);
-    console.log(markers);
-  };
+      const coordinate = route.params.paramKey.coordinate;
+      const title = route.params.paramKey.title
+      const description = route.params.paramKey.description
 
-  //event appui marker
-  const handleMarkerPress = () => {
-    console.log("marker pressed");
-  };
+      setMarkers(prevMarkers => [...prevMarkers, {
+        coordinate,
+        title: title,
+        description: description
+      }]);
+    }
+  }, [route.params]);
+
+
+  useEffect(() => {
+    const cleanUpMarkers = () => {
+      setMarkers([]);
+    };
+
+    // Ajoutez un écouteur pour l'événement de nettoyage (par exemple, "blur" pour une perte de focus)
+    const listener = navigation.addListener('blur', cleanUpMarkers);
+
+    // Retourne une fonction de nettoyage pour supprimer l'écouteur lorsqu'il n'est plus nécessaire
+    return () => {
+      listener.remove();
+    };
+  }, []);
   
   //coordonnée centre France
   const LATITUDE = 46.3159;
@@ -27,37 +45,22 @@ export const EarthMap = () => {
       <View style={styles.container}>
         <MapView
           style={styles.map}
-          onLongPress={handleLongPress}
-          onMarkerPress={handleMarkerPress}
           initialRegion={{
             latitude: LATITUDE,
             longitude: LONGITUDE,
-            latitudeDelta: 13,
+            latitudeDelta: 16,
             longitudeDelta: 7,
           }}
         >
-          {/* markers statique A ENLEVER */}
-          <Marker 
-            coordinate={{
-              latitude: 48.8534100, 
-              longitude: 2.3488000,
-            }}
-            title={"Paris"}
-            description={"Welcome to the rice motherfucker"}
-          />
-          <Marker
-            coordinate={{
-              latitude: 43.3,
-              longitude: -0.3,
-            }}
-            title={"Marker title"}
-            description={"Marker description"}
-          />
+
           {/* affichage dynamique de la liste des markers */}
-          {markers.map((marker, i) => 
+          {
+          markers.map((marker, i) => 
             <Marker 
               key={i} 
-              coordinate={marker.coordinate} 
+              coordinate={marker.coordinate}
+              title={marker.title}
+              description={marker.description} 
             />
           )}
         </MapView>

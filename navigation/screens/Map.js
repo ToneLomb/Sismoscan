@@ -19,9 +19,9 @@ export const EarthMap = () => {
     console.log("marker pressed");
   };
   
-  //coordonnée Paris
-  const LATITUDE = 48.8534100;
-  const LONGITUDE = 2.3488000;
+  //coordonnée centre France
+  const LATITUDE = 46.3159;
+  const LONGITUDE = 2.6561;
 
     return (
       <View style={styles.container}>
@@ -32,11 +32,11 @@ export const EarthMap = () => {
           initialRegion={{
             latitude: LATITUDE,
             longitude: LONGITUDE,
-            latitudeDelta: 0.0922,
-            longitudeDelta: 0.0421,
+            latitudeDelta: 13,
+            longitudeDelta: 7,
           }}
         >
-          {/* markers statique */}
+          {/* markers statique A ENLEVER */}
           <Marker 
             coordinate={{
               latitude: 48.8534100, 

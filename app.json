@@ -1,11 +1,12 @@
 {
   "expo": {
-    "name": "Sismoscan",
-    "slug": "Sismoscan",
+    "name": "testauth",
+    "slug": "testauth",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
+    "scheme": "testauth",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
@@ -15,9 +16,11 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.carrock.Sismoscan"
     },
     "android": {
+      "package": "com.carrock.Sismoscan",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
@@ -25,6 +28,12 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "c36e60b0-bd23-4b44-b7ab-34f2968455fe"
+      }
+    },
+    "owner": "carrock"
   }
 }

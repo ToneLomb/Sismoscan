@@ -22,8 +22,8 @@ export const EarthMap = ({route}) => {
     }
   }, [route.params]);
 
-
-  useEffect(() => {
+  //Fonction qui enleve les markers quand on quitte la map
+  /* useEffect(() => {
     const cleanUpMarkers = () => {
       setMarkers([]);
     };
@@ -35,7 +35,7 @@ export const EarthMap = ({route}) => {
     return () => {
       listener.remove();
     };
-  }, []);
+  }, []); */
   
   //coordonnée centre France
   const LATITUDE = 46.3159;

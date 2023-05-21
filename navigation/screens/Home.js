@@ -72,7 +72,7 @@ function calculateDistance(lat1, lng1, lat2, lng2) {
 }
 const RE = 0.008;
 
-export const SettingsScreen = () => {
+export const HomeScreen = () => {
 
   //Pour le CSS, permet de voir si on a cliqué ou non sur le setting
   const [accountVisible, setAccountVisible] = useState(false)
@@ -350,7 +350,7 @@ export const SettingsScreen = () => {
                       source={images.theme}
                       style={styles.icon}
                     />
-                    <Text style={[styles.settingTitle, { width: "55%" }]}>
+                    <Text style={[styles.settingTitle, { width: "60%" }]}>
                       Thème : {darkThemeEnabled ? "Sombre" : "Clair"}
                     </Text>
                     <Switch
@@ -431,7 +431,7 @@ export const SettingsScreen = () => {
                       source={images.notifications}
                       style={styles.icon}
                     />
-                    <Text style={[styles.settingTitle, { width: "50%" }]}>
+                    <Text style={[styles.settingTitle, { width: "60%" }]}>
                       {notificationEnabled ? "Activées" : "Désactivées"}
                     </Text>
                     <Switch

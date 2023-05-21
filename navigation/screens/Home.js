@@ -36,7 +36,7 @@ const evaluateDanger = (seisme, lat2, lng2) => {
 
 
   if (magnitude < 4 && distance < 50) return categorie.MINEUR
-  else if (magnitude < 5 && distance < 7000) return categorie.LEGER
+  else if (magnitude < 5 && distance < 200) return categorie.LEGER
   else if (magnitude < 6 && distance < 300) return categorie.MODERE
   else if (magnitude < 7 && distance < 500) return categorie.FORT
   else if (magnitude < 8 && distance < 800) return categorie.TRES_FORT
@@ -155,7 +155,7 @@ export const HomeScreen = () => {
           var categorie = evaluateDanger(seisme, latitude, longitude)
 
           //S'il date de moins de 3 minutes
-          if (differenceEnMillisecondes / 1000 < 180000) {
+          if (differenceEnMillisecondes / 1000 < 180) {
             //Notification qui va dépendre du danger
             if (categorie != "Pas de danger") {
               handleNotification(categorie, seisme.properties.description.fr)

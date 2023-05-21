@@ -5,6 +5,7 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import { SearchScreen } from "./screens/Search";
 import { HomeScreen } from "./screens/Home";
 import { EarthMap } from "./screens/Map";
+import { AdviceScreen } from "./screens/Advice";
 
 const Tab = createBottomTabNavigator();
 
@@ -24,6 +25,8 @@ export default function MainContainer() {
                         iconName = focused ? 'home' : 'home-outline';
                       } else if (route.name === 'Map') {
                         iconName = focused ? 'map' : 'map-outline';
+                      } else if (route.name === 'Advice') {
+                        iconName = focused ? 'bookmark' : "bookmark-outline";
                       }
                       return <Ionicons name={iconName} size={size} color={color} />;
                     },
@@ -42,6 +45,8 @@ export default function MainContainer() {
                     component={HomeScreen} />
                 <Tab.Screen 
                     name="Map" component={EarthMap} />
+                <Tab.Screen
+                    name="Advice" component={AdviceScreen}/>
             </Tab.Navigator>
         </NavigationContainer>
     )

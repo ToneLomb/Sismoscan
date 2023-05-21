@@ -5,14 +5,13 @@ const styles = StyleSheet.create({
         color: "#ffffff",
         textAlign: "center",
         fontSize: 25,
-        fontWeight: 300,
+        fontWeight: "bold",
     },
     box: {
         backgroundColor : "#000000",
         borderRadius: 10,
         marginTop: 25,
-        marginLeft: 10,
-        marginRight: 10,
+        marginHorizontal: 20,
         height: 45,
     },
     core:{
@@ -20,11 +19,11 @@ const styles = StyleSheet.create({
         marginTop: 5,
     },
     coreM:{
+
         textAlign: "justify",
     },
     coreT:{
-        marginLeft: 10,
-        marginRight: 10,
+        marginHorizontal: 30,
         marginTop: 15,
     }
 })

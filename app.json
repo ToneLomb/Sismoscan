@@ -4,7 +4,7 @@
     "slug": "Sismoscan",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/email.png",
+    "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "permissions": ["NOTIFICATIONS"],
     "useNextNotificationsApi": true,

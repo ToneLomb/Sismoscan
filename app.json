@@ -4,7 +4,7 @@
     "slug": "Sismoscan",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/email.png",
     "userInterfaceStyle": "light",
     "permissions": ["NOTIFICATIONS"],
     "useNextNotificationsApi": true,
@@ -27,6 +27,9 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "notification":{
+      "icon": "./assets/warning.png"
     }
   }
 }

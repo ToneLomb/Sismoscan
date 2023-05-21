@@ -23,6 +23,7 @@ function formatDate(dateTimeString) {
 }
 
 const RE = 0.008;
+
 function display(description, date) {
   if (description == "Aucun tremblemment de terre") {
     return description
@@ -117,6 +118,8 @@ export const MyForm = () => {
 
 
   async function fetchJson(rayon, latitude, longitude, startDate, endDate) {
+
+    console.log(endDate, startDate)
     let endDateString = parseDates(endDate)
     let startDateString = parseDates(startDate)
 

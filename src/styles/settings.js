@@ -11,6 +11,7 @@ const images = {compte: require('../../assets/user.png'),
                 rayon: require('../../assets/radius.png'),
                 magnitude: require('../../assets/magnitude.png'),
                 email: require('../../assets/email.png'),
+                logoNoir: require('../../assets/logo-noir.png'),
                 chevron: require('../../assets/next.png'),
                 chevronBas: require('../../assets/down-arrow.png')                
                 
@@ -33,7 +34,7 @@ const styles = StyleSheet.create({
         display: "flex",
         flexDirection: "row",
         borderBottomWidth: 2,
-        borderBottomColor: "#56A8D2"
+        borderBottomColor: "#19C2BC"
     },
     settingTitle:{
         textAlign: "justify",
@@ -47,8 +48,28 @@ const styles = StyleSheet.create({
         //borderBottomWidth: 1
     },
     settingsContainer:{
-        width: "85%",
+        width: "100%",
+        backgroundColor: "#e2e4e9",
+        padding: 35,
+
     },
+    logo:{
+        width: 700,
+        height: 0.30*700,
+        marginLeft: "78%",
+    },
+    infoContainer:{
+        alignItems: "center"
+    },
+    textContainer:{
+        marginTop: "-10%",
+        paddingBottom: 40,
+        width: "95%",
+    },
+    bienvenue:{
+        textAlign: "center",
+        paddingVertical: 10
+    }
 })
 
 export {images, styles}

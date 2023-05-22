@@ -23,6 +23,7 @@ function formatDate(dateTimeString) {
 }
 
 const RE = 0.008;
+
 function display(description, date) {
   if (description == "Aucun tremblemment de terre") {
     return description
@@ -65,6 +66,7 @@ const dateStringParse = (dateString) => {
 
 const today = new Date()
 const yesterday = new Date()
+
 
 yesterday.setDate(yesterday.getDate() - 1)
 
@@ -117,6 +119,8 @@ export const MyForm = () => {
 
 
   async function fetchJson(rayon, latitude, longitude, startDate, endDate) {
+
+    console.log(endDate, startDate)
     let endDateString = parseDates(endDate)
     let startDateString = parseDates(startDate)
 

@@ -3,8 +3,9 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { SearchScreen } from "./screens/Search";
-import { SettingsScreen } from "./screens/Settings";
+import { HomeScreen } from "./screens/Home";
 import { EarthMap } from "./screens/Map";
+import { AdviceScreen } from "./screens/Advice";
 
 const Tab = createBottomTabNavigator();
 
@@ -13,17 +14,19 @@ export default function MainContainer() {
     return(
         <NavigationContainer>
             <Tab.Navigator 
-                initialRouteName = "Search"
+                initialRouteName = "Home"
                 screenOptions={({ route }) => ({
                     tabBarIcon: ({ focused, color, size }) => {
                       let iconName;
           
                       if (route.name === 'Search') {
                         iconName = focused ? 'search' : 'search-outline';
-                      } else if (route.name === 'Settings') {
-                        iconName = focused ? 'settings' : 'settings-outline';
+                      } else if (route.name === 'Home') {
+                        iconName = focused ? 'home' : 'home-outline';
                       } else if (route.name === 'Map') {
                         iconName = focused ? 'map' : 'map-outline';
+                      } else if (route.name === 'Advice') {
+                        iconName = focused ? 'bookmark' : "bookmark-outline";
                       }
                       return <Ionicons name={iconName} size={size} color={color} />;
                     },
@@ -38,10 +41,12 @@ export default function MainContainer() {
                     name="Search" 
                     component={SearchScreen} />
                 <Tab.Screen 
-                    name="Settings" 
-                    component={SettingsScreen} />
+                    name="Home" 
+                    component={HomeScreen} />
                 <Tab.Screen 
                     name="Map" component={EarthMap} />
+                <Tab.Screen
+                    name="Advice" component={AdviceScreen}/>
             </Tab.Navigator>
         </NavigationContainer>
     )

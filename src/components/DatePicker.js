@@ -9,6 +9,12 @@ export const MyDatePicker = ({startDate, onDateChange}) => {
     const [open, setOpen] = useState(false);
     const [date, setDate] = useState(startDate);
 
+    const formatDate = (date) => {
+       let dateSplitted = date.split('/')
+       let newDate = dateSplitted[2] + "/" + dateSplitted[1] + "/" + dateSplitted[0]
+       return newDate
+    }
+
 
     function handleOnPress() {
         setOpen(!open);
@@ -24,7 +30,7 @@ export const MyDatePicker = ({startDate, onDateChange}) => {
             <View>
                 <TouchableOpacity onPress={handleOnPress}
                 style={styles.datePicker}>
-                <Text>{date}</Text>
+                <Text>{formatDate(date)}</Text>
                 <Image
                     source={images.calendar}
                     style={styles.calendar}
